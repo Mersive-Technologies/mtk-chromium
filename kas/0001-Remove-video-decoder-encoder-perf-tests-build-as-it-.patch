@@ -1,0 +1,48 @@
+From 7fa50663d8a9c7566331f13f839dad627b7431b6 Mon Sep 17 00:00:00 2001
+From: Pavlo Yadvychuk <pyadvychuk@baylibre.com>
+Date: Thu, 13 Feb 2025 13:19:21 +0000
+Subject: [PATCH] Remove video decoder/encoder perf tests build as it looks to
+ be broken
+
+Signed-off-by: Pavlo Yadvychuk <pyadvychuk@baylibre.com>
+---
+ meta-chromium/recipes-browser/chromium/chromium-gn.inc | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
+
+diff --git a/meta-chromium/recipes-browser/chromium/chromium-gn.inc b/meta-chromium/recipes-browser/chromium/chromium-gn.inc
+index 6701554..443a0e5 100644
+--- a/meta-chromium/recipes-browser/chromium/chromium-gn.inc
++++ b/meta-chromium/recipes-browser/chromium/chromium-gn.inc
+@@ -510,8 +510,7 @@ do_configure() {
+ }
+ 
+ do_compile() {
+-	ninja -v ${PARALLEL_MAKE} chrome chrome_sandbox chromedriver.unstripped \
+-		video_decode_accelerator_perf_tests video_encode_accelerator_perf_tests
++	ninja -v ${PARALLEL_MAKE} chrome chrome_sandbox chromedriver.unstripped
+ }
+ do_compile[progress] = "outof:^\[(\d+)/(\d+)\]\s+"
+ 
+@@ -603,10 +602,6 @@ do_install() {
+ 
+ 	# Install chrome_crashpad_handler.
+ 	install -m 0755 chrome_crashpad_handler ${D}${libdir}/chromium/
+-
+-	# Install Video Decoder performance tests
+-	install -m 0755 video_decode_accelerator_perf_tests ${D}${bindir}/
+-	install -m 0755 video_encode_accelerator_perf_tests ${D}${bindir}/
+ }
+ 
+ PACKAGES =+ "${PN}-chromedriver"
+@@ -615,8 +610,6 @@ FILES:${PN}-chromedriver = "${bindir}/chromedriver"
+ 
+ FILES:${PN} = " \
+         ${bindir}/chromium \
+-        ${bindir}/video_decode_accelerator_perf_tests \
+-        ${bindir}/video_encode_accelerator_perf_tests \
+         ${datadir}/applications/chromium.desktop \
+         ${datadir}/icons/hicolor/*x*/apps/chromium.png \
+         ${libdir}/chromium/* \
+-- 
+2.34.1
+
