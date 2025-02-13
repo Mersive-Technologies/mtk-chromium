@@ -101,6 +101,10 @@ repos:
     commit: 17494061f626ad537a632897d73fbcdd7baba4f0
     layers:
       meta-chromium:
+    patches:
+      0001:
+        repo: meta-browser
+        path: ../kas/0001-Remove-video-decoder-encoder-perf-tests-build-as-it-.patch
 
 bblayers_conf_header:
   standard: |
