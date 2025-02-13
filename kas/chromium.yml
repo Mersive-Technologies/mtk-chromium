@@ -106,6 +106,9 @@ repos:
         repo: meta-browser
         path: ../kas/0001-Remove-video-decoder-encoder-perf-tests-build-as-it-.patch
 
+  meta-mersive-phoenix:
+    path: meta-mersive-phoenix
+
 bblayers_conf_header:
   standard: |
     POKY_BBLAYERS_CONF_VERSION = "2"
