@@ -1,0 +1,146 @@
+header:
+  version: 17
+
+machine: genio-1200-evk
+distro: rity-demo
+target: chromium-ozone-wayland
+
+repos:
+  poky:
+    url: https://git.yoctoproject.org/poky
+    branch: kirkstone
+    path: poky
+    layers:
+      meta:
+      meta-poky:
+      meta-yocto-bsp:
+
+  meta-openembedded:
+    url: https://git.openembedded.org/meta-openembedded
+    branch: kirkstone
+    path: meta-openembedded
+    layers:
+      meta-oe:
+      meta-python:
+      meta-networking:
+      meta-multimedia:
+      meta-perl:
+      meta-webserver:
+
+  meta-arm:
+    url: https://git.yoctoproject.org/meta-arm
+    path: meta-arm
+    commit: d7b7b6fb6c7c5545e718e44f38853d1718ce5446
+    layers:
+      meta-arm:
+      meta-arm-toolchain:
+
+  meta-qt5:
+    url: git@github.com:meta-qt5/meta-qt5.git
+    path: meta-qt5
+    commit: 644ebf220245bdc06e7696ccc90acc97a0dd2566
+
+  meta-rity:
+    url: https://gitlab.collabora.com/mediatek/aiot/rity/meta-rity.git
+    commit: 708b7b5739d9c65409a37bc9a979c949c26fc335
+    path: meta-rity
+    layers:
+      meta:
+      meta-rity-demo:
+      meta-rity-bringup:
+      meta-rity-bsp:
+
+  meta-security:
+    url: https://git.yoctoproject.org/meta-security
+    path: meta-security
+    commit: 1a3e42cedbd94ca73be45800d0e902fec35d0f0f
+
+  meta-mediatek-bsp:
+    url: https://gitlab.collabora.com/mediatek/aiot/rity/meta-mediatek-bsp.git
+    path: meta-mediatek-bsp
+    commit: 6b33e098a1051119eb09cbe8c222dccff731f875
+
+  meta-mediatek-tsn:
+    url: https://gitlab.com/mediatek/aiot/rity/meta-mediatek-tsn.git
+    path: meta-mediatek-tsn
+    branch: critical-fixes/rity-kirkstone-v24.0
+
+  meta-mediatek-bluedroid:
+    url: https://gitlab.com/mediatek/aiot/rity/meta-mediatek-bluedroid.git
+    path: meta-mediatek-bluedroid
+    branch: critical-fixes/rity-kirkstone-v24.0
+
+  meta-mediatek-demo:
+    url: https://gitlab.com/mediatek/aiot/rity/meta-mediatek-demo.git
+    path: meta-mediatek-demo
+    branch: critical-fixes/rity-kirkstone-v24.0
+
+  meta-nn:
+    url: https://gitlab.com/mediatek/aiot/rity/meta-nn.git
+    path: meta-nn
+    branch: critical-fixes/rity-kirkstone-v24.0
+
+  meta-tensorflow:
+    url: https://git.yoctoproject.org/meta-tensorflow
+    path: meta-tensorflow
+    commit: f5f218c1ac055ef449ce779392ef426936d1bd2b
+
+  meta-clang:
+    url: https://gitlab.collabora.com/mediatek/aiot/rity/meta-clang.git
+    path: meta-clang
+    commit: c882fc2c82c9fb42c1533dfc27b17029e75f05ab
+
+  meta-lts-mixins:
+    url: https://git.yoctoproject.org/meta-lts-mixins
+    path: meta-lts-mixins
+    commit: 29e24f1cc0d3b918de47c4b10df9f789028f77d2
+
+  meta-browser:
+    url: https://gitlab.collabora.com/mediatek/aiot/rity/meta-browser.git
+    path: meta-browser
+    commit: 17494061f626ad537a632897d73fbcdd7baba4f0
+    layers:
+      meta-chromium:
+
+bblayers_conf_header:
+  standard: |
+    POKY_BBLAYERS_CONF_VERSION = "2"
+    BBPATH = "${TOPDIR}"
+    BBFILES ?= ""
+
+local_conf_header:
+  disk-monitoring: |
+    BB_DISKMON_DIRS ??= "\
+        STOPTASKS,${TMPDIR},1G,100K \
+        STOPTASKS,${DL_DIR},1G,100K \
+        STOPTASKS,${SSTATE_DIR},1G,100K \
+        STOPTASKS,/tmp,100M,100K \
+        HALT,${TMPDIR},100M,1K \
+        HALT,${DL_DIR},100M,1K \
+        HALT,${SSTATE_DIR},100M,1K \
+        HALT,/tmp,10M,1K"
+  standard: |
+    BB_GIT_SHALLOW ?= "1"
+    BB_GIT_SHALLOW_DEPTH ?= "1"
+    BB_GENERATE_SHALLOW_TARBALLS ?= "1"
+    BUILDHISTORY_COMMIT = "0"
+    BUILDHISTORY_FEATURES = "package"
+    CONF_VERSION = "2"
+    DEFAULTTUNE:virtclass-multilib-lib32 = "armv7athf-neon"
+    DL_DIR = "${TOPDIR}/../downloads"
+    EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
+    INHERIT += "buildhistory"
+    KERNEL_DEVICETREE_OVERLAYS_AUTOLOAD:genio-350 += "gpu-mali.dtbo video.dtbo"
+    KERNEL_DEVICETREE_OVERLAYS_AUTOLOAD:genio-700 += "gpu-mali.dtbo video.dtbo apusys.dtbo"
+    KERNEL_DEVICETREE_OVERLAYS_AUTOLOAD:genio-510 += "gpu-mali.dtbo video.dtbo apusys.dtbo"
+    KERNEL_DEVICETREE_OVERLAYS_AUTOLOAD:genio-1200 += "gpu-mali.dtbo video.dtbo apusys.dtbo"
+    LICENSE_FLAGS_ACCEPTED = "commercial"
+    MULTILIBS = "multilib:lib32"
+    NDA_BUILD = "1"
+    PACKAGECONFIG:append:pn-qemu-system-native = " sdl"
+    PATCHRESOLVE = "noop"
+    PERSISTENT_DIR = "${TOPDIR}/../cache"
+    SSTATE_DIR = "${TOPDIR}/../sstate-cache"
+    SKIP_META_SECURITY_SANITY_CHECK = "1"
+    USER_CLASSES ?= "buildstats"
+  package-class: PACKAGE_CLASSES ?= "package_deb"
