@@ -8,8 +8,9 @@ target: chromium-ozone-wayland
 repos:
   poky:
     url: https://git.yoctoproject.org/poky
-    branch: kirkstone
     path: poky
+    branch: kirkstone
+    commit: 1ab34a5f6407b597f569c4b08d341e82db488f2c
     layers:
       meta:
       meta-poky:
@@ -17,8 +18,9 @@ repos:
 
   meta-openembedded:
     url: https://git.openembedded.org/meta-openembedded
-    branch: kirkstone
     path: meta-openembedded
+    branch: kirkstone
+    commit: 4ad41baed6236d499804cbfc4f174042d84fce97
     layers:
       meta-oe:
       meta-python:
@@ -30,19 +32,16 @@ repos:
   meta-arm:
     url: https://git.yoctoproject.org/meta-arm
     path: meta-arm
-    commit: d7b7b6fb6c7c5545e718e44f38853d1718ce5446
+    branch: kirkstone
+    commit: 936c02ec13661bd86a05f7f90e1b920d5092d670
     layers:
       meta-arm:
       meta-arm-toolchain:
 
-  meta-qt5:
-    url: git@github.com:meta-qt5/meta-qt5.git
-    path: meta-qt5
-    commit: 644ebf220245bdc06e7696ccc90acc97a0dd2566
-
   meta-rity:
-    url: https://gitlab.collabora.com/mediatek/aiot/rity/meta-rity.git
-    commit: 708b7b5739d9c65409a37bc9a979c949c26fc335
+    url: https://gitlab.com/mediatek/aiot/rity/meta-rity.git
+    tag: rity-kirkstone-v24.1
+    commit: db66fb1d4fd9d256ffb692db1e47e4ffcf52440b
     path: meta-rity
     layers:
       meta:
@@ -52,37 +51,44 @@ repos:
 
   meta-security:
     url: https://git.yoctoproject.org/meta-security
+    branch: kirkstone
     path: meta-security
-    commit: 1a3e42cedbd94ca73be45800d0e902fec35d0f0f
+    commit: 353078bc06c8b471736daab6ed193e30d533d1f1
 
   meta-mediatek-bsp:
-    url: https://gitlab.collabora.com/mediatek/aiot/rity/meta-mediatek-bsp.git
+    url: https://gitlab.com/mediatek/aiot/rity/meta-mediatek-bsp.git
     path: meta-mediatek-bsp
-    commit: 6b33e098a1051119eb09cbe8c222dccff731f875
+    tag: rity-kirkstone-v24.1
+    commit: 09607a3b2aa89872f2cbd0f077dc3b5ca7ff4ecc
 
   meta-mediatek-tsn:
     url: https://gitlab.com/mediatek/aiot/rity/meta-mediatek-tsn.git
     path: meta-mediatek-tsn
-    branch: critical-fixes/rity-kirkstone-v24.0
+    tag: rity-kirkstone-v24.1
+    commit: b91a6a227886ea88c97a31c805b19484874dfae7
 
   meta-mediatek-bluedroid:
     url: https://gitlab.com/mediatek/aiot/rity/meta-mediatek-bluedroid.git
     path: meta-mediatek-bluedroid
-    branch: critical-fixes/rity-kirkstone-v24.0
+    tag: rity-kirkstone-v24.1
+    commit: 026e552c94bf053f1d06df5880edf5da263442f5
 
   meta-mediatek-demo:
     url: https://gitlab.com/mediatek/aiot/rity/meta-mediatek-demo.git
     path: meta-mediatek-demo
-    branch: critical-fixes/rity-kirkstone-v24.0
+    tag: rity-kirkstone-v24.1
+    commit: 399ef9563e2ba6d887771138c01ab5aaad164b18
 
   meta-nn:
     url: https://gitlab.com/mediatek/aiot/rity/meta-nn.git
     path: meta-nn
-    branch: critical-fixes/rity-kirkstone-v24.0
+    tag: rity-kirkstone-v24.1
+    commit: d7c8951d5bdeaac1fcf7c6402ffdd99c2c39fa84
 
   meta-tensorflow:
     url: https://git.yoctoproject.org/meta-tensorflow
     path: meta-tensorflow
+    branch: master
     commit: f5f218c1ac055ef449ce779392ef426936d1bd2b
 
   meta-clang:
@@ -93,12 +99,13 @@ repos:
   meta-lts-mixins:
     url: https://git.yoctoproject.org/meta-lts-mixins
     path: meta-lts-mixins
-    commit: 29e24f1cc0d3b918de47c4b10df9f789028f77d2
+    branch: kirkstone/rust
+    commit: 199dd7704cfb32db445e09f745932afbe51e1763
 
   meta-browser:
     url: https://gitlab.collabora.com/mediatek/aiot/rity/meta-browser.git
     path: meta-browser
-    commit: 17494061f626ad537a632897d73fbcdd7baba4f0
+    commit: f3a16f9482bd8d2876e6a4bc5b0d06af4bb2287a
     layers:
       meta-chromium:
     patches:
