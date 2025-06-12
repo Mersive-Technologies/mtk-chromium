@@ -102,10 +102,20 @@ repos:
     branch: kirkstone/rust
     commit: 199dd7704cfb32db445e09f745932afbe51e1763
 
+  meta-flutter:
+    url: https://gitlab.collabora.com/mediatek/aiot/rity/meta-flutter.git
+    path: meta-flutter
+    commit: 525d3dd55a2bfb6837ef1a1de203ab1c7c48d79d
+
+  meta-gt5:
+    url: https://github.com/meta-qt5/meta-qt5.git
+    path: meta-qt5
+    branch: kirkstone
+
   meta-browser:
     url: https://gitlab.collabora.com/mediatek/aiot/rity/meta-browser.git
     path: meta-browser
-    commit: f3a16f9482bd8d2876e6a4bc5b0d06af4bb2287a
+    commit: ea75d9be717b4bf1e82d353e15f69de118ea2d16
     layers:
       meta-chromium:
     patches:
@@ -157,4 +167,5 @@ local_conf_header:
     SSTATE_DIR = "${TOPDIR}/../sstate-cache"
     SKIP_META_SECURITY_SANITY_CHECK = "1"
     USER_CLASSES ?= "buildstats"
+
   package-class: PACKAGE_CLASSES ?= "package_deb"
