@@ -1,0 +1,67 @@
+From 141e21f66abe4f52bd6dc7a5b763ad7f2c48d2ef Mon Sep 17 00:00:00 2001
+From: Adam Stepniak <astepniak@mersive.com>
+Date: Tue, 19 Aug 2025 19:39:23 +0000
+Subject: [PATCH] EMB-1598: H264 frames are beeing dropped once in a while in
+ Chromium - increased buffers size in Chromium
+
+---
+ .../recipes-browser/chromium/chromium-gn.inc  |  3 ++-
+ ...eues-to-avoid-drops-on-intialization.patch | 25 +++++++++++++++++++
+ 2 files changed, 27 insertions(+), 1 deletion(-)
+ create mode 100644 meta-chromium/recipes-browser/chromium/files/0020-increase-webrtc-queues-to-avoid-drops-on-intialization.patch
+
+diff --git a/meta-chromium/recipes-browser/chromium/chromium-gn.inc b/meta-chromium/recipes-browser/chromium/chromium-gn.inc
+index 8166d9f..b777159 100644
+--- a/meta-chromium/recipes-browser/chromium/chromium-gn.inc
++++ b/meta-chromium/recipes-browser/chromium/chromium-gn.inc
+@@ -34,6 +34,7 @@ SRC_URI += "\
+     file://0017-Revert-Set-Rust-symbol-visibility-to-hidden-when-C-s.patch \
+     file://0018-pdfium-Fix-missing-PDFiumAPIStringBufferAdapter-temp.patch \
+     file://0019-third_party-devtools-frontend-Add-missing-out-node_m.patch \
++    file://0020-increase-webrtc-queues-to-avoid-drops-on-intialization.patch \
+ "
+ # ARM/AArch64-specific patches.
+ SRC_URI:append:aarch64 = "${@bb.utils.contains('TUNE_FEATURES', 'crypto', '', ' file://arm/0001-Fix-AES-crypto-SIGILL-on-rpi4-64.patch', d)}"
+@@ -509,7 +510,7 @@ do_configure() {
+ }
+ 
+ do_compile() {
+-	ninja -v ${PARALLEL_MAKE} chrome chrome_sandbox chromedriver.unstripped
++	ninja -v ${PARALLEL_MAKE} chrome chrome_sandbox chromedriver.unstripped rtc_tools 
+ }
+ do_compile[progress] = "outof:^\[(\d+)/(\d+)\]\s+"
+ 
+diff --git a/meta-chromium/recipes-browser/chromium/files/0020-increase-webrtc-queues-to-avoid-drops-on-intialization.patch b/meta-chromium/recipes-browser/chromium/files/0020-increase-webrtc-queues-to-avoid-drops-on-intialization.patch
+new file mode 100644
+index 0000000..1cf34e8
+--- /dev/null
++++ b/meta-chromium/recipes-browser/chromium/files/0020-increase-webrtc-queues-to-avoid-drops-on-intialization.patch
+@@ -0,0 +1,25 @@
++diff --git a/third_party/blink/renderer/platform/peerconnection/rtc_video_decoder_adapter.cc b/third_party/blink/renderer/platform/peerconnection/rtc_video_decoder_adapter.cc
++index e9fd47ca3a5ad..1e192b4903e92 100644
++--- a/third_party/blink/renderer/platform/peerconnection/rtc_video_decoder_adapter.cc
+++++ b/third_party/blink/renderer/platform/peerconnection/rtc_video_decoder_adapter.cc
++@@ -71,7 +71,7 @@ namespace {
++ constexpr gfx::Size kDefaultSize(640, 480);
++ 
++ // Maximum number of buffers that we will queue in |pending_buffers_|.
++-constexpr int32_t kMaxPendingBuffers = 8;
+++constexpr int32_t kMaxPendingBuffers = 32;
++ 
++ // Maximum number of timestamps that will be maintained in |decode_timestamps_|.
++ // Really only needs to be a bit larger than the maximum reorder distance (which
++diff --git a/modules/video_coding/generic_decoder.cc b/modules/video_coding/generic_decoder.cc
++index 23199f7a34..3e0684d8ec 100644
++--- a/third_party/webrtc/modules/video_coding/generic_decoder.cc
+++++ b/third_party/webrtc/modules/video_coding/generic_decoder.cc
++@@ -37,7 +37,7 @@ namespace webrtc {
++ 
++ namespace {
++ 
++-constexpr size_t kDecoderFrameMemoryLength = 10;
+++constexpr size_t kDecoderFrameMemoryLength = 32;
++ 
++ }
+-- 
+2.34.1
+

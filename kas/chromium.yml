@@ -122,6 +122,9 @@ repos:
       0001:
         repo: meta-browser
         path: ../kas/0001-Remove-video-decoder-encoder-perf-tests-build-as-it-.patch
+      0002:
+        repo: meta-browser
+        path: ../kas/0001-EMB-1598-H264-frames-are-beeing-dropped-once-in-a-wh.patch
 
   meta-mersive-phoenix:
     path: meta-mersive-phoenix
