@@ -1,0 +1,37 @@
+diff --git a/ui/ozone/platform/wayland/host/wayland_connection.cc b/ui/ozone/platform/wayland/host/wayland_connection.cc
+index 4b5e8d3cb6c6b..3e7aff58e0c14 100644
+--- a/ui/ozone/platform/wayland/host/wayland_connection.cc
++++ b/ui/ozone/platform/wayland/host/wayland_connection.cc
+@@ -252,6 +252,11 @@ bool WaylandConnection::Initialize(bool use_threaded_polling) {
+   };
+   wl_registry_add_listener(registry_.get(), &kRegistryListener, this);
+ 
++  if (!output_manager_) {
++    output_manager_ =
++        std::make_unique<WaylandOutputManager>(this);
++  }
++
+   // "To mark the end of the initial burst of events, the client can
+   // use the wl_display.sync request immediately after calling
+   // wl_display.get_registry."
+@@ -365,7 +370,7 @@ bool WaylandConnection::WlGlobalsReady() const {
+ 
+   // Output manager must be able to instantiate a valid WaylandScreen when
+   // requested by the upper layers.
+-  ready &= output_manager_ && output_manager_->IsOutputReady();
++  //ready &= output_manager_ && output_manager_->IsOutputReady();
+ 
+   return ready;
+ }
+diff --git a/ui/ozone/platform/wayland/host/wayland_screen.cc b/ui/ozone/platform/wayland/host/wayland_screen.cc
+index fe3de1c16f24d..2b2c4ea21a073 100644
+--- a/ui/ozone/platform/wayland/host/wayland_screen.cc
++++ b/ui/ozone/platform/wayland/host/wayland_screen.cc
+@@ -392,6 +392,7 @@ display::Display WaylandScreen::GetDisplayMatching(
+     return GetDisplayNearestPoint(match_rect.origin());
+ 
+   const display::Display* display_matching =
++      display_list_.displays().empty() ? nullptr :
+       display::FindDisplayWithBiggestIntersection(display_list_.displays(),
+                                                   match_rect);
+   return display_matching ? *display_matching : GetPrimaryDisplay();
