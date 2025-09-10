@@ -27,7 +27,7 @@ index 8166d9f..b777159 100644
  
  do_compile() {
 -	ninja -v ${PARALLEL_MAKE} chrome chrome_sandbox chromedriver.unstripped
-+	ninja -v ${PARALLEL_MAKE} chrome chrome_sandbox chromedriver.unstripped rtc_tools 
++	ninja -v ${PARALLEL_MAKE} chrome chrome_sandbox chromedriver.unstripped 
  }
  do_compile[progress] = "outof:^\[(\d+)/(\d+)\]\s+"
  
@@ -46,7 +46,7 @@ index 0000000..1cf34e8
 + 
 + // Maximum number of buffers that we will queue in |pending_buffers_|.
 +-constexpr int32_t kMaxPendingBuffers = 8;
-++constexpr int32_t kMaxPendingBuffers = 32;
+++constexpr int32_t kMaxPendingBuffers = 48;
 + 
 + // Maximum number of timestamps that will be maintained in |decode_timestamps_|.
 + // Really only needs to be a bit larger than the maximum reorder distance (which
@@ -59,7 +59,7 @@ index 0000000..1cf34e8
 + namespace {
 + 
 +-constexpr size_t kDecoderFrameMemoryLength = 10;
-++constexpr size_t kDecoderFrameMemoryLength = 32;
+++constexpr size_t kDecoderFrameMemoryLength = 48;
 + 
 + }
 -- 
