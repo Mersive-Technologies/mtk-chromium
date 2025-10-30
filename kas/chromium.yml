@@ -115,7 +115,7 @@ repos:
   meta-browser:
     url: https://gitlab.collabora.com/mediatek/aiot/rity/meta-browser.git
     path: meta-browser
-    commit: 1b0d3aedf4bad7adc7eede106c036941de6f3eb6
+    commit: 5c327582cbf5a4e1b6620b17eca4467ae514d1b5
     layers:
       meta-chromium:
     patches:
