@@ -9,8 +9,8 @@ repos:
   poky:
     url: https://git.yoctoproject.org/poky
     path: poky
-    branch: kirkstone
-    commit: 1ab34a5f6407b597f569c4b08d341e82db488f2c
+    branch: scarthgap
+    commit: ac257900c33754957b2696529682029d997a8f28
     layers:
       meta:
       meta-poky:
@@ -19,8 +19,8 @@ repos:
   meta-openembedded:
     url: https://git.openembedded.org/meta-openembedded
     path: meta-openembedded
-    branch: kirkstone
-    commit: 4ad41baed6236d499804cbfc4f174042d84fce97
+    branch: scarthgap
+    commit: 491671faee11ea131feab5a3a451d1a01deb2ab1
     layers:
       meta-oe:
       meta-python:
@@ -32,96 +32,95 @@ repos:
   meta-arm:
     url: https://git.yoctoproject.org/meta-arm
     path: meta-arm
-    branch: kirkstone
-    commit: 936c02ec13661bd86a05f7f90e1b920d5092d670
+    branch: scarthgap
+    commit: a81c19915b5b9e71ed394032e9a50fd06919e1cd
     layers:
       meta-arm:
       meta-arm-toolchain:
 
   meta-rity:
     url: https://gitlab.com/mediatek/aiot/rity/meta-rity.git
-    tag: rity-kirkstone-v24.1.1
-    commit: db66fb1d4fd9d256ffb692db1e47e4ffcf52440b
+    tag: rity-scarthgap-v25.1.1
+    commit: 7b467fecf8820e714f5fffcaa1910758e392233c
     path: meta-rity
     layers:
       meta:
       meta-rity-demo:
       meta-rity-bringup:
-      meta-rity-bsp:
 
   meta-security:
     url: https://git.yoctoproject.org/meta-security
-    branch: kirkstone
+    branch: scarthgap
     path: meta-security
-    commit: 353078bc06c8b471736daab6ed193e30d533d1f1
+    commit: b13f1705d723650de61277670c8a76aadea4cfdd
 
   meta-mediatek-bsp:
     url: https://gitlab.com/mediatek/aiot/rity/meta-mediatek-bsp.git
     path: meta-mediatek-bsp
-    tag: rity-kirkstone-v24.1.1
-    commit: 75131c31caa931fc0d77ac0b992452545bf34967
+    tag: rity-scarthgap-v25.1.1
+    commit: a1755682201aa56b4bfa0d4e9cc2306ef6add5ca
 
   meta-mediatek-tsn:
     url: https://gitlab.com/mediatek/aiot/rity/meta-mediatek-tsn.git
     path: meta-mediatek-tsn
-    tag: rity-kirkstone-v24.1.1
-    commit: b91a6a227886ea88c97a31c805b19484874dfae7
+    tag: rity-scarthgap-v25.1.1
+    commit: 9e780f424ba2b1f56090113e96acf8f90aabf0ed
 
   meta-mediatek-bluedroid:
     url: https://gitlab.com/mediatek/aiot/rity/meta-mediatek-bluedroid.git
     path: meta-mediatek-bluedroid
-    tag: rity-kirkstone-v24.1.1
-    commit: 026e552c94bf053f1d06df5880edf5da263442f5
+    tag: rity-scarthgap-v25.1.1
+    commit: fcce714cf82cedbf2a086f776c982de092ac9768
 
   meta-mediatek-demo:
     url: https://gitlab.com/mediatek/aiot/rity/meta-mediatek-demo.git
     path: meta-mediatek-demo
-    tag: rity-kirkstone-v24.1.1
-    commit: 399ef9563e2ba6d887771138c01ab5aaad164b18
+    tag: rity-scarthgap-v25.1.1
+    commit: 815a43e8c1d5850c7d4d633d0dd4d532186b859f
 
   meta-nn:
     url: https://gitlab.com/mediatek/aiot/rity/meta-nn.git
     path: meta-nn
-    tag: rity-kirkstone-v24.1.1
-    commit: d7c8951d5bdeaac1fcf7c6402ffdd99c2c39fa84
+    tag: rity-scarthgap-v25.1.1
+    commit: a2209426fa130893e1d4bd9e2824b6d3370575f1
 
   meta-tensorflow:
     url: https://git.yoctoproject.org/meta-tensorflow
     path: meta-tensorflow
-    branch: master
-    commit: f5f218c1ac055ef449ce779392ef426936d1bd2b
+    branch: scarthgap
+    commit: eeee54cfa3c51c1fd99604a0d5f173096bdcf1da
 
   meta-clang:
     url: https://gitlab.collabora.com/mediatek/aiot/rity/meta-clang.git
-    path: meta-clang
-    commit: c882fc2c82c9fb42c1533dfc27b17029e75f05ab
+    path: meta-clang20
+    commit: 76596813cd0061bd9818a80926e6900af61fcaa0
 
   meta-lts-mixins:
     url: https://git.yoctoproject.org/meta-lts-mixins
     path: meta-lts-mixins
-    branch: kirkstone/rust
-    commit: 199dd7704cfb32db445e09f745932afbe51e1763
+    branch: scarthgap/rust
+    commit: 96deb45139df027473faf0938fe006d33c45c375
 
   meta-flutter:
     url: https://gitlab.collabora.com/mediatek/aiot/rity/meta-flutter.git
     path: meta-flutter
-    commit: 525d3dd55a2bfb6837ef1a1de203ab1c7c48d79d
+    commit: 83b0892eacce2beede5bc60c39daae674f99792b
 
   meta-gt5:
     url: https://github.com/meta-qt5/meta-qt5.git
     path: meta-qt5
-    branch: kirkstone
+    branch: scarthgap
 
   meta-browser:
     url: https://gitlab.collabora.com/mediatek/aiot/rity/meta-browser.git
     path: meta-browser
-    tag: mediatek/kirkstone/132.0.6834.245-1
+    commit: f50e7319de63d6c36810cfbfac417e18233d430e
     layers:
       meta-chromium:
     patches:
       0001:
         repo: meta-browser
-        path: ../kas/0001-Remove-video-decoder-encoder-perf-tests-build-as-it-.patch
+        path: ../kas/0001-MCS-92-Remove-failing-to-build-perf-tests.patch
 
   meta-mersive-phoenix:
     path: meta-mersive-phoenix

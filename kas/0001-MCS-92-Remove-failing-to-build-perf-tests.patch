@@ -1,0 +1,50 @@
+From 007336b1d1973d224a4673f71b015c797366bc23 Mon Sep 17 00:00:00 2001
+From: Adam Stepniak <astepniak@mersive.com>
+Date: Sun, 19 Apr 2026 17:47:14 +0000
+Subject: [PATCH] MCS-92: Remove failing to build perf tests
+
+---
+ meta-chromium/recipes-browser/chromium/chromium-gn.inc    | 7 +------
+ meta-chromium/recipes-browser/chromium/patch-mediatek.inc | 1 -
+ 2 files changed, 1 insertion(+), 7 deletions(-)
+
+diff --git a/meta-chromium/recipes-browser/chromium/chromium-gn.inc b/meta-chromium/recipes-browser/chromium/chromium-gn.inc
+index 92bfa38..62d257c 100644
+--- a/meta-chromium/recipes-browser/chromium/chromium-gn.inc
++++ b/meta-chromium/recipes-browser/chromium/chromium-gn.inc
+@@ -540,8 +540,7 @@ do_configure() {
+ }
+ 
+ do_compile() {
+-	ninja -v ${PARALLEL_MAKE} chrome chrome_sandbox chromedriver.unstripped \
+-		video_decode_accelerator_perf_tests video_encode_accelerator_perf_tests
++	ninja -v ${PARALLEL_MAKE} chrome chrome_sandbox chromedriver.unstripped
+ }
+ do_compile[progress] = "outof:^\[(\d+)/(\d+)\]\s+"
+ 
+@@ -633,10 +632,6 @@ do_install() {
+ 
+ 	# Install chrome_crashpad_handler.
+ 	install -m 0755 chrome_crashpad_handler ${D}${libdir}/chromium/
+-
+-	# Install Video Decoder performance tests
+-	install -m 0755 video_decode_accelerator_perf_tests ${D}${bindir}/
+-	install -m 0755 video_encode_accelerator_perf_tests ${D}${bindir}/
+ }
+ 
+ PACKAGES =+ "${PN}-chromedriver"
+diff --git a/meta-chromium/recipes-browser/chromium/patch-mediatek.inc b/meta-chromium/recipes-browser/chromium/patch-mediatek.inc
+index d35681b..5984445 100644
+--- a/meta-chromium/recipes-browser/chromium/patch-mediatek.inc
++++ b/meta-chromium/recipes-browser/chromium/patch-mediatek.inc
+@@ -17,7 +17,6 @@ SRC_URI:append = "\
+     file://mediatek/0016-media-gpu-v4l2-Wake-any-currently-running-v4l2-poll-.patch \
+     file://mediatek/0017-media-Enable-v4l2-decoding-and-encoding-features-by-.patch \
+     file://mediatek/0018-media-gpu-Prefer-the-V4L2-image-processor-by-default.patch \
+-    file://mediatek/0019-media-gpu-test-Support-HEVC-codec-in-encoder-tests.patch \
+     file://mediatek/0020-media-gpu-test-Use-SHM-buffers-for-input-to-encoder-.patch \
+     file://mediatek/0021-media-capture-v4l2-Exclude-devices-that-don-t-suppor.patch \
+     file://mediatek/0022-media-capture-v4l2-Exclude-Media-Controller-centric-.patch \
+-- 
+2.34.1
+
