@@ -1,0 +1,14 @@
+Remove -Zexternal-clangrt rustc flag unsupported by older rustc
+
+--- a/build/config/compiler/BUILD.gn
++++ b/build/config/compiler/BUILD.gn
+@@ -1056,9 +1056,6 @@
+     # For deterministic builds, keep the local machine's current working
+     # directory from appearing in build outputs.
+     "-Zremap-cwd-prefix=.",
+-
+-    # We use clang-rt sanitizer runtimes.
+-    "-Zexternal-clangrt",
+   ]
+ 
+   if (!is_win || force_rustc_color_output) {

@@ -7,7 +7,9 @@ This is a reland of
 https://chromium-review.googlesource.com/c/chromium/src/+/4935454
 to uncondtionally listen to POLLOUT to avoid the queues getting
 stuck.
-
+---
+ media/gpu/v4l2/v4l2_stateful_video_decoder.cc | 38 ++++++++++++++-----
+ 1 file changed, 28 insertions(+), 10 deletions(-)
 
 diff --git a/media/gpu/v4l2/v4l2_stateful_video_decoder.cc b/media/gpu/v4l2/v4l2_stateful_video_decoder.cc
 index 947de879a516e..3d6ac33042044 100644
