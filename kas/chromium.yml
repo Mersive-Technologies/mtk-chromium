@@ -40,7 +40,7 @@ repos:
 
   meta-rity:
     url: https://gitlab.com/mediatek/aiot/rity/meta-rity.git
-    tag: rity-kirkstone-v24.1
+    tag: rity-kirkstone-v24.1.1
     commit: db66fb1d4fd9d256ffb692db1e47e4ffcf52440b
     path: meta-rity
     layers:
@@ -58,31 +58,31 @@ repos:
   meta-mediatek-bsp:
     url: https://gitlab.com/mediatek/aiot/rity/meta-mediatek-bsp.git
     path: meta-mediatek-bsp
-    tag: rity-kirkstone-v24.1
-    commit: 09607a3b2aa89872f2cbd0f077dc3b5ca7ff4ecc
+    tag: rity-kirkstone-v24.1.1
+    commit: 75131c31caa931fc0d77ac0b992452545bf34967
 
   meta-mediatek-tsn:
     url: https://gitlab.com/mediatek/aiot/rity/meta-mediatek-tsn.git
     path: meta-mediatek-tsn
-    tag: rity-kirkstone-v24.1
+    tag: rity-kirkstone-v24.1.1
     commit: b91a6a227886ea88c97a31c805b19484874dfae7
 
   meta-mediatek-bluedroid:
     url: https://gitlab.com/mediatek/aiot/rity/meta-mediatek-bluedroid.git
     path: meta-mediatek-bluedroid
-    tag: rity-kirkstone-v24.1
+    tag: rity-kirkstone-v24.1.1
     commit: 026e552c94bf053f1d06df5880edf5da263442f5
 
   meta-mediatek-demo:
     url: https://gitlab.com/mediatek/aiot/rity/meta-mediatek-demo.git
     path: meta-mediatek-demo
-    tag: rity-kirkstone-v24.1
+    tag: rity-kirkstone-v24.1.1
     commit: 399ef9563e2ba6d887771138c01ab5aaad164b18
 
   meta-nn:
     url: https://gitlab.com/mediatek/aiot/rity/meta-nn.git
     path: meta-nn
-    tag: rity-kirkstone-v24.1
+    tag: rity-kirkstone-v24.1.1
     commit: d7c8951d5bdeaac1fcf7c6402ffdd99c2c39fa84
 
   meta-tensorflow:
@@ -115,7 +115,7 @@ repos:
   meta-browser:
     url: https://gitlab.collabora.com/mediatek/aiot/rity/meta-browser.git
     path: meta-browser
-    commit: 5c327582cbf5a4e1b6620b17eca4467ae514d1b5
+    commit: mediatek/kirkstone/132.0.6834.245-1
     layers:
       meta-chromium:
     patches:
