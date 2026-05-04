@@ -1,0 +1,35 @@
+From 0ecb9ed9cd4e4b3b96a37f3254cde83596f45acd Mon Sep 17 00:00:00 2001
+From: Alexandros Frantzis <alexandros.frantzis@collabora.com>
+Date: Thu, 11 Dec 2025 16:10:43 +0200
+Subject: [PATCH] media/gpu/v4l2: Reset decoder when reinitializing
+
+Some decoders (e.g., on MT8390) do not like being reinitialized
+mid-stream with new parameters (e.g., adaptive streaming). Perform a
+full decoder reset during reinitialization to avoid decoder hangs.
+---
+ media/gpu/v4l2/v4l2_stateful_video_decoder.cc | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/media/gpu/v4l2/v4l2_stateful_video_decoder.cc b/media/gpu/v4l2/v4l2_stateful_video_decoder.cc
+index 469898c7ffae7..ed27fc1812067 100644
+--- a/media/gpu/v4l2/v4l2_stateful_video_decoder.cc
++++ b/media/gpu/v4l2/v4l2_stateful_video_decoder.cc
+@@ -317,6 +317,15 @@ void V4L2StatefulVideoDecoder::Initialize(const VideoDecoderConfig& config,
+     return;
+   }
+ 
++  // Some decoders (e.g., on MT8390) do not like being reinitialized
++  // mid-stream with new parameters (e.g., adaptive streaming). Perform a
++  // full decoder reset before reinitialization to avoid decoder hangs.
++  if (IsInitialized())
++  {
++    VLOGF(1) << "Performing Reset() before re-initialization";
++    Reset(base::DoNothing());
++  }
++
+   // Verify there's still room for more decoders before querying whether
+   // |config| is supported because some drivers (e.g. Qualcomm Venus on SC7180)
+   // would not allow for opening the device fd and we'd think it an error.
+-- 
+GitLab
+
