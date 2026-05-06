@@ -115,7 +115,7 @@ repos:
   meta-browser:
     url: https://gitlab.collabora.com/mediatek/aiot/rity/meta-browser.git
     path: meta-browser
-    commit: mediatek/kirkstone/132.0.6834.245-1
+    tag: mediatek/kirkstone/132.0.6834.245-1
     layers:
       meta-chromium:
     patches:
