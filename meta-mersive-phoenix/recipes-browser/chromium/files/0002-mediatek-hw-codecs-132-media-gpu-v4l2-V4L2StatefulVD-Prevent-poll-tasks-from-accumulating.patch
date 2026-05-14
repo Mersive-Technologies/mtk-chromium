@@ -1,0 +1,36 @@
+From 103f694917f3b64837e86bbf911a5a3458b3f48c Mon Sep 17 00:00:00 2001
+From: Robert Mader <robert.mader@collabora.com>
+Date: Wed, 13 May 2026 14:21:08 +0200
+Subject: [PATCH] media/gpu/v4l2:V4L2StatefulVD: Prevent poll tasks from
+ accumulating
+
+Which otherwise can result the GPU process running OOM.
+
+Note:
+1. The only place tasks get posted to cancelable_task_tracker_ is at the
+   end of this function.
+2. Checking for HasTrackedTasks() and returning does not work as this
+   function can be called from the task callbacks, i.e. when the task is
+   still running.
+
+Signed-off-by: Robert Mader <robert.mader@collabora.com>
+---
+ media/gpu/v4l2/v4l2_stateful_video_decoder.cc | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/media/gpu/v4l2/v4l2_stateful_video_decoder.cc b/media/gpu/v4l2/v4l2_stateful_video_decoder.cc
+index 947de879a516e..5a61d191fa596 100644
+--- a/media/gpu/v4l2/v4l2_stateful_video_decoder.cc
++++ b/media/gpu/v4l2/v4l2_stateful_video_decoder.cc
+@@ -897,6 +897,8 @@ size_t V4L2StatefulVideoDecoder::GetNumberOfReferenceFrames() {
+ void V4L2StatefulVideoDecoder::RearmCAPTUREQueueMonitoring() {
+   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
+ 
++  cancelable_task_tracker_.TryCancelAll();
++
+   auto dequeue_callback = base::BindPostTaskToCurrentDefault(base::BindOnce(
+       &V4L2StatefulVideoDecoder::TryAndDequeueCAPTUREQueueBuffers,
+       weak_ptr_factory_for_events_.GetWeakPtr()));
+-- 
+GitLab
+
