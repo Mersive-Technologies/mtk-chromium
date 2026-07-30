@@ -16,13 +16,22 @@ repos:
   meta-browser:
     url: https://gitlab.collabora.com/mediatek/aiot/rity/meta-browser.git
     path: meta-browser
-    commit: 7dc042b680d22b742f788294fa36be57170e115f
-    branch: mediatek/scarthgap
+    commit: f50e7319de63d6c36810cfbfac417e18233d430e
+    branch: update/mediatek/scarthgap/138.0.7204.298/a6845a99
     layers:
       meta-chromium:
+
+  meta-mersive-phoenix:
+    path: meta-mersive-phoenix
 
 local_conf_header:
   unmask-chromium-wayland: |
     BBMASK:remove = ".*recipes-browser/chromium/chromium-ozone-wayland.*"
+
+  clean_build: |
+    DL_DIR ?= "${TOPDIR}/../yocto_downloads"
+    BB_GENERATE_MIRROR_TARBALLS = "1"
+    PERSISTENT_DIR ?= "${TOPDIR}/../cache-pod"
+    SSTATE_DIR ?= "${TOPDIR}/../sstate-cache-pod"
 
   package-class: PACKAGE_CLASSES ?= "package_deb"
