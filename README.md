@@ -1,14 +1,36 @@
 # Build
+Since scarthgap BSP-25.1.1 we are using KAS version 5.2 and kas-container for building
 
-```sh
-    kas build kas/chromium.yml
+### VM Prep
+```bash
+sudo apt install git-lfs
+python3 -m venv ../myenv
+. ../myenv/bin/activate
+pip3 install kas==5.2
 ```
 
-# Build in the shell
+### Build directory prep
+```sh
+    cd mtk-chromium
+
+    BUILD_BASE_DIR="${PWD}"
+    export SSTATE_DIR="${BUILD_BASE_DIR}/sstate-cache-pod"
+    export DL_DIR="${BUILD_BASE_DIR}/yocto_downloads"
+    export KAS_BUILD_DIR="${BUILD_BASE_DIR}/build-pod"
+
+    mkdir -p "$SSTATE_DIR" "$DL_DIR" "$KAS_BUILD_DIR"
+
+```
+### Direct build in kas-container
+```sh
+    kas-container --ssh-dir ${HOME}/.ssh build kas/chromium.yml
+```
+
+### Build in the shell
 
 ```sh
-    host$    kas shell kas/chromium.yml
-    sh-5.1$  bitbake -c build chromium-ozone-wayland
+    kas-container --ssh-dir ${HOME}/.ssh shell kas/chromium.yml
+    bitbake -c build chromium-ozone-wayland
 ```
 
 # Create release tarball
@@ -16,8 +38,8 @@
 ### Prerequisites: chromium package already built.
 
 ```sh
-    host$    kas shell kas/chromium.yml
-    sh-5.1$  ../do_release_tarball.sh
+    kas-container --ssh-dir ${HOME}/.ssh shell kas/chromium.yml
+    ../do_release_tarball.sh
 ```
 
 Release tarball will be available as `tar.gz` archive in top-level workspice directory:
